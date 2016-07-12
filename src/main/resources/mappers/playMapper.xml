@@ -8,5 +8,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select 	*
 		from	sl_play
 	</select>
+	<select id="selectYoutube" resultType="play">
+		select 	*
+		from	sl_play
+		where	category = 'YouTube'
+		<if test="start != null">
+		limit	#{start},6
+		</if>
+	</select>
+	<select id="selectWebtoon" resultType="play">
+		select 	*
+		from	sl_play
+		where	category = 'webtoon'
+		<if test="day != null">
+		and		link like #{day}
+		</if>
+	</select>
 
 </mapper>

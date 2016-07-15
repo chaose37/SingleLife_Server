@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectWebtoon" resultType="play">
 		select 	*
 		from	sl_play
-		where	category = 'webtoon'
+		where	category = 'Webtoon'
 		<if test="day != null">
 		and		link like #{day}
 		</if>

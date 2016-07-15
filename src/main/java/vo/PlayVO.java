@@ -10,6 +10,35 @@ public class PlayVO {
 	private String category;
 	private String regdate;
 	private String tag;
+	private String writer;
+	private String star;
+	private String origin;
+	private String updateday;
+	
+	public String getUpdateday() {
+		return updateday;
+	}
+	public void setUpdateday(String updateday) {
+		this.updateday = updateday;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getStar() {
+		return star;
+	}
+	public void setStar(String star) {
+		this.star = star;
+	}
+	public String getOrigin() {
+		return origin;
+	}
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
 	public String getTitle() {
 		return title;
 	}

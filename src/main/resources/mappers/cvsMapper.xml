@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.singlelife.persistence.cvsMapper">
+	<select id="select" resultType="cvs">
+		select * 
+		from sl_cvsinfo
+		where 1>0
+		<if test="store != null">
+		and		store = #{store}
+		</if> 
+		<if test="event != null">
+		and		event like #{event}
+		</if> 
+		limit 0, 20
+	</select>
+	<select id="selectStore" resultType="cvs">
+		select * from sl_cvsinfo where store = #{store}
+	</select>
+	<select id="selectEvent" resultType="cvs">
+		select * from sl_cvsinfo where event like #{event}
+	</select>
+</mapper>

@@ -6,8 +6,8 @@ import vo.CVSVO;
 
 public interface CVSService {
 	
-	public List<CVSVO> listStore(String store) throws Exception;
-	public List<CVSVO> listEvent(String event) throws Exception;
-	public List<CVSVO> listAll();
+	public List<CVSVO> listStore(String store,Integer pageNo,Integer pageSize) throws Exception;
+	public List<CVSVO> listEvent(String event,Integer pageNo,Integer pageSize) throws Exception;
+	public List<CVSVO> listAll(Integer pageNo,Integer pageSize);
 
 }

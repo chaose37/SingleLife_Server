@@ -4,11 +4,18 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("play")
 public class PlayVO {
+	private int no;
 	private String title;
 	private String image;
 	private String link;
 	private String category;
 	private String regdate;
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	private String tag;
 	private String writer;
 	private String star;

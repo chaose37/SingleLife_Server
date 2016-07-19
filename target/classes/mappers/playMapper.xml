@@ -7,13 +7,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectPlay" resultType="play">
 		select 	*
 		from	sl_play
+		<if test="start != null">
+		limit	#{start},#{size}
+		</if>
 	</select>
 	<select id="selectYoutube" resultType="play">
 		select 	*
 		from	sl_play
 		where	category = 'YouTube'
 		<if test="start != null">
-		limit	#{start},6
+		limit	#{start},#{size}
+		</if>
+	</select>
+	<select id="selectGame" resultType="play">
+		select 	*
+		from	sl_play
+		where	category = 'Game'
+		<if test="start != null">
+		limit	#{start},#{size}
 		</if>
 	</select>
 	<select id="selectWebtoon" resultType="play">
@@ -22,6 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where	category = 'Webtoon'
 		<if test="day != null">
 		and		link like #{day}
+		</if>
+		<if test="start != null">
+		limit	#{start},#{size}
 		</if>
 	</select>
 

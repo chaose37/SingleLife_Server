@@ -13,13 +13,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if> 
 		<if test="event != null">
 		and		event like #{event}
-		</if> 
-		limit 0, 20
+		</if>
+		<if test="start != null">
+		limit #{start}, #{size}
+		</if>
 	</select>
 	<select id="selectStore" resultType="cvs">
 		select * from sl_cvsinfo where store = #{store}
+		<if test="start != null">
+		limit #{start}, #{size}
+		</if>
 	</select>
 	<select id="selectEvent" resultType="cvs">
 		select * from sl_cvsinfo where event like #{event}
+		<if test="start != null">
+		limit #{start}, #{size}
+		</if>
 	</select>
 </mapper>

@@ -21,17 +21,19 @@ public class CVSController {
 	private CVSService service;
 	 
 	@RequestMapping("/all")
-	public List<CVSVO> listAll() throws Exception
+	public List<CVSVO> listAll(Integer pageNo,Integer pageSize) throws Exception
 	{
-		return service.listAll();
+		return service.listAll(pageNo,pageSize);
 	}
 	@RequestMapping("/store/{store}")
-	public List<CVSVO> listStore(@PathVariable("store") String store) throws Exception
+	public List<CVSVO> listStore(@PathVariable("store") String store,
+			Integer pageNo,Integer pageSize) throws Exception
 	{
-		return service.listStore(store);
+		return service.listStore(store,pageNo,pageSize);
 	}
 	@RequestMapping("/event/{event}")
-	public ResponseEntity<List<CVSVO>> listEvent(@PathVariable("event") String event) throws Exception
+	public ResponseEntity<List<CVSVO>> listEvent(@PathVariable("event") String event
+			,Integer pageNo,Integer pageSize) throws Exception
 	{
 		ResponseEntity<List<CVSVO>> entity = null;
 		if(event.equals("add"))					event = "증정";
@@ -44,7 +46,8 @@ public class CVSController {
 			return entity;
 			}
 			
-		entity = new ResponseEntity<List<CVSVO>>(service.listEvent(event),HttpStatus.OK);
+		entity = new ResponseEntity<List<CVSVO>>
+		(service.listEvent(event,pageNo,pageSize),HttpStatus.OK);
 		return entity;
 	}
 

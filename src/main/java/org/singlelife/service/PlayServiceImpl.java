@@ -17,27 +17,33 @@ public class PlayServiceImpl implements PlayService{
 	private PlayMapper mapper;
 
 	@Override
-	public List<PlayVO> listAll() throws Exception {
+	public List<PlayVO> listAll(Integer pageNo,Integer pageSize) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectPlay();
+		return mapper.selectPlay(pageNo,pageSize);
 	}
 
 	@Override
-	public List<PlayVO> youtube(int pageNo) throws Exception{
+	public List<PlayVO> youtube(Integer pageNo,Integer pageSize) throws Exception{
 		// TODO Auto-generated method stub
-		return mapper.selectYoutube(pageNo);
+		return mapper.selectYoutube(pageNo,pageSize);
 	}
 
 	@Override
-	public List<PlayVO> webtoon()throws Exception {
+	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize)throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectWebtoon();
+		return mapper.selectWebtoon(pageNo,pageSize);
 	}
 
 	@Override
-	public List<PlayVO> webtoon(String day)throws Exception {
+	public List<PlayVO> webtoon(String day,Integer pageNo,Integer pageSize)throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectWebtoon(day);
+		return mapper.selectWebtoon(day,pageNo,pageSize);
+	}
+
+	@Override
+	public List<PlayVO> game(Integer pageNo, Integer pageSize) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.selectGame(pageNo, pageSize);
 	}
 
 

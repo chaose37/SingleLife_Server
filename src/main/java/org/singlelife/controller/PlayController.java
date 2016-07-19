@@ -27,25 +27,30 @@ public class PlayController {
 	@Inject
 	private PlayService service;
 	@RequestMapping(value="/all",method=RequestMethod.GET)
-	public List<PlayVO> listAll()throws Exception{
-		return service.listAll();
+	public List<PlayVO> listAll(Integer pageNo,Integer pageSize)throws Exception{
+		return service.listAll(pageNo,pageSize);
 	}
-	@RequestMapping("/youtube/{pageNo}")
-	public List<PlayVO> youtube(@PathVariable("pageNo") Integer pageNo) throws Exception
+	@RequestMapping("/youtube")
+	public List<PlayVO> youtube(Integer pageNo,Integer pageSize) throws Exception
 	{
-		return service.youtube(pageNo);
+		return service.youtube(pageNo,pageSize);
 	}
 	
 	@RequestMapping("/webtoon")
-	public List<PlayVO> webtoon() throws Exception
+	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize) throws Exception
 	{
-		return service.webtoon();
+		return service.webtoon(pageNo,pageSize);
 	}
 	@RequestMapping("/webtoon/{day}")
-	public List<PlayVO> dailyWebtoon(@PathVariable("day") String day) throws Exception
+	public List<PlayVO> dailyWebtoon(@PathVariable("day") String day, Integer pageNo
+			,Integer pageSize) throws Exception
+	{		
+		return service.webtoon(day,pageNo,pageSize);
+	}
+	@RequestMapping("/game")
+	public List<PlayVO> game(Integer pageNo,Integer pageSize) throws Exception
 	{
-		System.out.println(day);
-		return service.webtoon(day);
+		return service.webtoon(pageNo,pageSize);
 	}
 	
 	@RequestMapping("/getimg")

@@ -21,31 +21,71 @@ public class PlayMapperImpl implements PlayMapper{
 	private SqlSessionTemplate session;
 
 	@Override
-	public List<PlayVO> selectPlay()throws Exception {
-		
-		return session.selectList(namespace+".selectPlay");
+	public List<PlayVO> selectPlay(Integer pageNo,Integer pageSize)throws Exception {
+		Map<String,Integer> map = new HashMap<>();
+		if(pageSize == null) pageSize = 6;
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("size", pageSize);
+			map.put("start", start);
+		}	
+		return session.selectList(namespace+".selectPlay",map);
 	}
 
 	@Override
-	public List<PlayVO> selectYoutube(Integer pageNo)throws Exception {
-		Integer start = (pageNo-1)*6;
+	public List<PlayVO> selectYoutube(Integer pageNo,Integer pageSize)throws Exception {
 		Map<String,Integer> map = new HashMap<>();
-		map.put("start", start);
+		if(pageSize == null) pageSize = 6;
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("size", pageSize);
+			map.put("start", start);
+		}	
 		return session.selectList(namespace+".selectYoutube",map);
 	}
 
 	@Override
-	public List<PlayVO> selectWebtoon()throws Exception {
-		return session.selectList(namespace+".selectWebtoon");
+	public List<PlayVO> selectWebtoon(Integer pageNo,Integer pageSize)throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		if(pageSize == null) pageSize = 20;
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("size", pageSize);
+			map.put("start", start);
+		}	
+		return session.selectList(namespace+".selectWebtoon",map);
 	}
 
 	@Override
-	public List<PlayVO> selectWebtoon(String day) throws Exception {
+	public List<PlayVO> selectWebtoon(String day,Integer pageNo,Integer pageSize) throws Exception {
 		day = "%weekday="+day+'%';
-		Map<String,String> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<>();
+		if(pageSize == null) pageSize = 20;
 		map.put("day", day);
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("size", pageSize);
+			map.put("start", start);
+		}	
 		List<PlayVO> list = session.selectList(namespace+".selectWebtoon",map);
 		return list;
+	}
+
+	@Override
+	public List<PlayVO> selectGame(Integer pageNo, Integer pageSize) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		if(pageSize == null) pageSize = 20;
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("size", pageSize);
+			map.put("start", start);
+		}	
+		return session.selectList(namespace+".selectGame",map);
 	}
 
 	

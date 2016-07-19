@@ -19,25 +19,49 @@ public class CVSMapperImpl implements CVSMapper{
 	
 	private String namespace = "org.singlelife.persistence.cvsMapper";
 
+	
 	@Override
-	public List<CVSVO> select() {
-		// TODO Auto-generated method stub
-		return session.selectList(namespace+".select");
+	public List<CVSVO> select(Integer pageNo,Integer pageSize) {
+		
+		if(pageSize == null) pageSize = 20;
+		Map<String,Object> map = new HashMap<>();
+		
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("start", start);
+			map.put("size", pageSize);
+		}
+
+		return session.selectList(namespace+".select",map);
 	}
 
 	@Override
-	public List<CVSVO> selectStore(String store) {
+	public List<CVSVO> selectStore(String store,Integer pageNo,Integer pageSize) {
 		// TODO Auto-generated method stub
-		Map<String,String> map = new HashMap<>();
+		if(pageSize == null) pageSize = 20;
+		Map<String,Object> map = new HashMap<>();
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("start", start);
+			map.put("size", pageSize);
+		}
 		map.put("store", store);
 		return session.selectList(namespace+".select",map);
 	}
 
 	@Override
-	public List<CVSVO> selectEvent(String event) {
+	public List<CVSVO> selectEvent(String event,Integer pageNo,Integer pageSize) {
 		event ="%"+event+"%";
-		Map<String,String> map = new HashMap<>();
-		System.out.println(event);
+		if(pageSize == null) pageSize = 20;
+		Map<String,Object> map = new HashMap<>();
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("start", start);
+			map.put("size", pageSize);
+		}
 		map.put("event", event);
 		return session.selectList(namespace+".select",map);
 	}

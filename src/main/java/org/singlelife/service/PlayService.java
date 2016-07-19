@@ -8,8 +8,9 @@ import vo.PlayVO;
 
 public interface PlayService {
 	
-	public List<PlayVO> listAll() throws Exception;
-	public List<PlayVO> youtube(int pageNo) throws Exception;
-	public List<PlayVO> webtoon() throws Exception;
-	public List<PlayVO> webtoon(String day) throws Exception;
+	public List<PlayVO> listAll(Integer pageNo,Integer pageSize) throws Exception;
+	public List<PlayVO> youtube(Integer pageNo,Integer pageSize) throws Exception;
+	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize) throws Exception;
+	public List<PlayVO> webtoon(String day,Integer pageNo,Integer pageSize) throws Exception;
+	public List<PlayVO> game(Integer pageNo,Integer pageSize) throws Exception;
 } 

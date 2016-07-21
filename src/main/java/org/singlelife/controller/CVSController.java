@@ -32,8 +32,7 @@ public class CVSController {
 		return service.listStore(store,pageNo,pageSize);
 	}
 	@RequestMapping("/event/{event}")
-	public ResponseEntity<List<CVSVO>> listEvent(@PathVariable("event") String event
-			,Integer pageNo,Integer pageSize) throws Exception
+	public ResponseEntity<List<CVSVO>> listEvent(@PathVariable("event") String event ,Integer pageNo,Integer pageSize) throws Exception
 	{
 		ResponseEntity<List<CVSVO>> entity = null;
 		if(event.equals("add"))					event = "증정";

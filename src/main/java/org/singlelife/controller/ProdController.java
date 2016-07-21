@@ -20,7 +20,4 @@ public class ProdController {
 	{
 		return service.selectProd(pageNo, pageSize);
 	}
-	
-	
-
 }

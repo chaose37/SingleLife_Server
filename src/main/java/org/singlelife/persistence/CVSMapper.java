@@ -11,6 +11,8 @@ public interface CVSMapper {
 			,Integer pageNo,Integer pageSize);
 	public List<CVSVO> selectEvent(String event
 			,Integer pageNo,Integer pageSize);
+	public List<CVSVO> select(String store,String event
+			,Integer pageNo,Integer pageSize);
 
 
 }

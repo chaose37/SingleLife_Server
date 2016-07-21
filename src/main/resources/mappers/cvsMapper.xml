@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{start}, #{size}
 		</if>
 	</select>
-	<select id="selectStore" resultType="cvs">
+<!-- 	<select id="selectStore" resultType="cvs">
 		select * from sl_cvsinfo where store = #{store}
 		<if test="start != null">
 		limit #{start}, #{size}
@@ -29,5 +29,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="start != null">
 		limit #{start}, #{size}
 		</if>
-	</select>
+	</select> -->
 </mapper>

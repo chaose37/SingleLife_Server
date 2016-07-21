@@ -49,6 +49,25 @@ public class CVSController {
 		(service.listEvent(event,pageNo,pageSize),HttpStatus.OK);
 		return entity;
 	}
+	@RequestMapping("/{store}/{event}")
+	public ResponseEntity<List<CVSVO>> list(@PathVariable("store") String store,
+			@PathVariable("event") String event ,Integer pageNo,Integer pageSize) throws Exception
+	{
+		ResponseEntity<List<CVSVO>> entity = null;
+		if(event.equals("add"))					event = "증정";
+		else if(event.equals("sale"))			event = "할인";
+		else if(event.equals("plus1"))			event = "1+1";
+		else if(event.equals("plus2"))			event = "2+1";
+		else 									
+		{
+			entity = new ResponseEntity<List<CVSVO>>(HttpStatus.BAD_REQUEST);
+			return entity;
+		}
+		
+		entity = new ResponseEntity<List<CVSVO>>
+		(service.list(store,event,pageNo,pageSize),HttpStatus.OK);
+		return entity;
+	}
 
 
 }

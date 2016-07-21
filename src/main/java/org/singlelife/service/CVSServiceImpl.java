@@ -33,6 +33,12 @@ public class CVSServiceImpl implements CVSService{
 		// TODO Auto-generated method stub
 		return mapper.selectEvent(event,pageNo,pageSize);
 	}
+
+	@Override
+	public List<CVSVO> list(String store, String event, Integer pageNo, Integer pageSize) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.select(store, event, pageNo, pageSize);
+	}
 	
 	
 }

@@ -66,4 +66,21 @@ public class CVSMapperImpl implements CVSMapper{
 		return session.selectList(namespace+".select",map);
 	}
 
+	@Override
+	public List<CVSVO> select(String store, String event, Integer pageNo, Integer pageSize) {
+		event ="%"+event+"%";
+		if(pageSize == null) pageSize = 20;
+		Map<String,Object> map = new HashMap<>();
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1)*pageSize;
+			map.put("start", start);
+			map.put("size", pageSize);
+		}
+		map.put("event", event);
+		map.put("store", store);
+		
+		return session.selectList(namespace+".select",map);
+	}
+
 }

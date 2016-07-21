@@ -7,9 +7,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import vo.TravelVO;
 
+@Repository
 public class TravelMapperImpl implements TravelMapper {
 
 	@Inject 

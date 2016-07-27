@@ -2,6 +2,7 @@ package org.singlelife.controller;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -59,10 +60,30 @@ public class PlayController {
 		
 		//'감염자', 'http://thumb.comic.naver.net/webtoon/675823/thumbnail/title_thumbnail_20160309184041_t83x90.jpg', '/webtoon/list.nhn?titleId=675823&amp;weekday=sun', 'webtoon', '2016-07-08 16:24:19', NULL
 
-		System.out.println(image);
+		String img = "";
+		if(!image.contains("postfile"))
+		{
+			img = image;
+		}
+		else
+		{			
+			String[] spl = image.split("/");
+			for(String s : spl)
+			{
+				if(s.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*"))
+				{
+					String[] temp = s.split("\\?");
+					s=URLEncoder.encode(temp[0],"UTF-8")+"?"+temp[1];
+				}
+				img+=s;
+				if(!s.contains("type="))	img+='/';
+			}
+		}
+		System.out.println(img);
+		//System.out.println(image);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
-		URL url = new URL(image);
+		URL url = new URL(img);
 		
 		InputStream in = url.openStream();
 		

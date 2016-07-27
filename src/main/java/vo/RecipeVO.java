@@ -8,8 +8,14 @@ public class RecipeVO {
 	private String title;
 	private String link;
 	private String image;
-	private String regdate;
+	private String updatedate;
 
+	public String getUpdatedate() {
+		return updatedate;
+	}
+	public void setUpdatedate(String updatedate) {
+		this.updatedate = updatedate;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -33,11 +39,5 @@ public class RecipeVO {
 	}
 	public void setImage(String image) {
 		this.image = image;
-	}
-	public String getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
 	}
 }

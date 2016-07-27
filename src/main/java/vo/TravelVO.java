@@ -8,13 +8,13 @@ public class TravelVO {
 	private String link;
 	private String title;
 	private String image;
-	private String regdate;
-
-	public String getRegdate() {
-		return regdate;
+	private String updatedate;
+	
+	public String getUpdatedate() {
+		return updatedate;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setUpdatedate(String updatedate) {
+		this.updatedate = updatedate;
 	}
 	public int getNo() {
 		return no;

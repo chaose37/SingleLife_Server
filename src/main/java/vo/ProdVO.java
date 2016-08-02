@@ -9,6 +9,14 @@ public class ProdVO {
 	private String title;
 	private String price;
 	private String image;
+	private String store;
+	
+	public String getStore() {
+		return store;
+	}
+	public void setStore(String store) {
+		this.store = store;
+	}
 	public String getLink() {
 		return link;
 	}

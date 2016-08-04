@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import util.ImageToBytes;
 import vo.PlayVO;
 
 
@@ -47,8 +46,9 @@ public class PlayMapperImpl implements PlayMapper{
 	}
 
 	@Override
-	public List<PlayVO> selectWebtoon(Integer pageNo,Integer pageSize)throws Exception {
+	public List<PlayVO> selectWebtoon(Integer pageNo,Integer pageSize,String origin)throws Exception {
 		Map<String,Object> map = new HashMap<>();
+		map.put("origin", origin);
 		if(pageSize == null) pageSize = 20;
 		if(pageNo != null)
 		{
@@ -60,9 +60,9 @@ public class PlayMapperImpl implements PlayMapper{
 	}
 
 	@Override
-	public List<PlayVO> selectWebtoon(String day,Integer pageNo,Integer pageSize) throws Exception {
-		day = "%weekday="+day+'%';
+	public List<PlayVO> selectWebtoon(String day,Integer pageNo,Integer pageSize,String origin) throws Exception {
 		Map<String,Object> map = new HashMap<>();
+		map.put("origin", origin);
 		if(pageSize == null) pageSize = 20;
 		map.put("day", day);
 		if(pageNo != null)

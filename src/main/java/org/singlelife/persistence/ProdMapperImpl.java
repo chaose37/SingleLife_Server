@@ -33,4 +33,18 @@ public class ProdMapperImpl implements ProdMapper{
 		return session.selectList(namespace+".selectProd",map);
 	}
 
+	@Override
+	public List<ProdVO> selectStoreProd(String store, Integer pageNo, Integer pageSize) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		map.put("store", store);
+		if(pageSize == null) pageSize = 20;
+		if(pageNo != null)
+		{
+			Integer start = (pageNo-1) * pageSize;
+			map.put("size",pageSize);
+			map.put("start", start);
+		}
+		return session.selectList(namespace+".selectStoreProd",map);
+	}
+
 }

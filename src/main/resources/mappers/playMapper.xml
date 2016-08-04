@@ -32,7 +32,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from	sl_play
 		where	category = 'Webtoon'
 		<if test="day != null">
-		and		link like #{day}
+		and		updateday like #{day}
+		</if>
+		<if test="origin != null">
+		and		origin = #{origin}
 		</if>
 		<if test="start != null">
 		limit	#{start},#{size}

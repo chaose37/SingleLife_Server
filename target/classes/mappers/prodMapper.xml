@@ -11,4 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit	#{start},#{size}
 		</if>
 	</select>
+	<select id="selectStoreProd" resultType="prod">
+		select 	*
+		from	sl_prodinfo
+		<if test="store != null">
+		where store = #{store}
+		</if>
+		<if test="start != null">
+		limit	#{start},#{size}
+		</if>
+	</select>
 </mapper>

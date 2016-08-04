@@ -29,15 +29,15 @@ public class PlayServiceImpl implements PlayService{
 	}
 
 	@Override
-	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize)throws Exception {
+	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize,String origin)throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectWebtoon(pageNo,pageSize);
+		return mapper.selectWebtoon(pageNo,pageSize,origin);
 	}
 
 	@Override
-	public List<PlayVO> webtoon(String day,Integer pageNo,Integer pageSize)throws Exception {
+	public List<PlayVO> webtoon(String day,Integer pageNo,Integer pageSize,String origin)throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectWebtoon(day,pageNo,pageSize);
+		return mapper.selectWebtoon(day,pageNo,pageSize,origin);
 	}
 
 	@Override

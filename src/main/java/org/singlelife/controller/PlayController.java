@@ -38,20 +38,20 @@ public class PlayController {
 	}
 	
 	@RequestMapping("/webtoon")
-	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize) throws Exception
+	public List<PlayVO> webtoon(Integer pageNo,Integer pageSize,String origin) throws Exception
 	{
-		return service.webtoon(pageNo,pageSize);
+		return service.webtoon(pageNo,pageSize,origin);
 	}
 	@RequestMapping("/webtoon/{day}")
 	public List<PlayVO> dailyWebtoon(@PathVariable("day") String day, Integer pageNo
-			,Integer pageSize) throws Exception
+			,Integer pageSize,String origin) throws Exception
 	{		
-		return service.webtoon(day,pageNo,pageSize);
+		return service.webtoon(day, pageNo, pageSize,origin);
 	}
 	@RequestMapping("/game")
 	public List<PlayVO> game(Integer pageNo,Integer pageSize) throws Exception
 	{
-		return service.webtoon(pageNo,pageSize);
+		return service.game(pageNo,pageSize);
 	}
 	
 	@RequestMapping("/getimg")

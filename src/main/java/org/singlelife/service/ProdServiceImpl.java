@@ -21,4 +21,10 @@ public class ProdServiceImpl implements ProdService{
 		return mapper.selectProd(pageNo, pageSize);
 	}
 
+	@Override
+	public List<ProdVO> selectStoreProd(String store, Integer pageNo, Integer pageSize) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.selectStoreProd(store,pageNo, pageSize);
+	}
+
 }

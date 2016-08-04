@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.singlelife.persistence.ApiMapper">
+	<select id="chkInfo" resultType="apiVO">
+		select 	* 
+		from 	sl_apimng
+		where	ip = #{ip} and apikey = #{apikey}
+	</select>
+	<select id="selectKey" resultType="apiVO">
+		select 	* 
+		from 	sl_apimng
+		where	email = #{email}
+	</select>
+	<select id="chkEmail" resultType="apiVO">
+		select 	email
+		from 	sl_apimng
+		where	email = #{email}
+	</select>
+	
+	
+	<!-- 
+		Insert
+	 -->
+	 <insert id="insertKey">
+	 	insert 	into sl_apimng(email,ip,apikey)
+	 	values 	(#{email},#{ip},#{apikey})
+	 </insert>
+	 
+	 <delete id="deleteKey">
+	 	delete 
+	 	from	sl_apimng
+	 	where	email = #{email}
+	 </delete>
+	 
+	 <update id = "updateKey">
+	 	update	sl_apimng
+	 	set		ip=#{ip}
+	 	where	email = #{email}
+	 </update>
+	 
+	
+	
+	
+	
+</mapper>

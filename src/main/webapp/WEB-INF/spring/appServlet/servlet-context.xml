@@ -29,12 +29,17 @@
 	<beans:bean id="uploadPath" class="java.lang.String"> 
 		<beans:constructor-arg value="\\192.168.0.53\dd\upload"></beans:constructor-arg>
 	</beans:bean>
-	
-
-	
 	<context:component-scan base-package="org.singlelife.controller" />
 	
-	
+	<beans:bean id="ApiInterceptor" class="org.singlelife.interceptor.ApiInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<exclude-mapping path="/api/**"/>
+			<exclude-mapping path="/parcel/**"/>
+			<beans:ref bean="ApiInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>

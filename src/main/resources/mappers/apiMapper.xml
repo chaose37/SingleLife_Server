@@ -4,10 +4,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.singlelife.persistence.ApiMapper">
+<!--  
 	<select id="chkInfo" resultType="apiVO">
 		select 	* 
 		from 	sl_apimng
 		where	ip = #{ip} and apikey = #{apikey}
+	</select>
+-->
+	<select id="chkInfo" resultType="apiVO">
+		select 	* 
+		from 	sl_apimng
+		where	apikey = #{apikey}
 	</select>
 	<select id="selectKey" resultType="apiVO">
 		select 	* 
@@ -41,8 +48,194 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	where	email = #{email}
 	 </update>
 	 
+	 
+	 <insert id="history">
+	 <selectKey order="BEFORE" resultType="string" keyProperty="email">
+	 	select email from sl_apimng where apikey = #{apikey}
+	 </selectKey>
+	 	insert 	into sl_apihistory(email,apikey,service)
+	 	values 	(#{email},#{apikey},#{service})
+	 </insert>
+	 
+	 <select id="selectWeekend" resultType="chart">
+	 SELECT  
+ 		db_date as regdate,day,
+ 		
+		<if test='email != null and email !=""'>
+		email,
+		</if>
+  		ifnull(GROUP_CONCAT(if(service = 'webtoon', count, null)),0) AS 'webtoon', 
+  		ifnull(GROUP_CONCAT(if(service = 'youtube', count, null)),0) AS 'youtube', 
+  		ifnull(GROUP_CONCAT(if(service = 'game', count, null)),0) AS 'game',
+  		ifnull(GROUP_CONCAT(if(service = 'cvs', count, null)),0) AS 'cvs', 
+  		ifnull(GROUP_CONCAT(if(service = 'parcel', count, null)),0) AS 'parcel', 
+  		ifnull(GROUP_CONCAT(if(service = 'recipe', count, null)),0) AS 'recipe', 
+  		ifnull(GROUP_CONCAT(if(service = 'restaurant', count, null)),0) AS 'restaurant', 
+  		ifnull(GROUP_CONCAT(if(service = 'prod', count, null)),0) AS 'prod',
+  		ifnull(GROUP_CONCAT(if(service = 'travel', count, null)),0) AS 'travel'
+	  FROM(
+		select *,count(*) as count
+		from(
+			select 	date_format(regdate, '%Y-%m-%d') as regdate,service
+			<if test='email != null and email !=""'>
+			,email
+			</if>
+            from	sl_apihistory
+            <choose>
+            <when test="day != null">
+            where   regdate between date_add(#{day},interval -6 day) and date_add(#{day},interval +1 day)
+            </when>
+            <otherwise>
+            where   regdate between date_add(curdate(),interval -6 day) and curdate()
+            </otherwise>
+            </choose>
+            <if test='email != null and email !=""'>
+     		and email = #{email}
+     		</if>
+			) as a right outer join
+			(
+			select db_date, day_name as day
+			from time_dimension
+			<choose>
+			<when test="day != null">
+			where db_date between date_add(#{day},interval -6 day) and
+			date_add(#{day},interval +1 day)
+			</when>
+			<otherwise>
+			where db_date between date_add(curdate(),interval -6 day) and curdate()
+			</otherwise>
+			</choose>
+			) as d
+			on		regdate = db_date
+        	group by 	d.db_date, a.SERVICE
+	  	 ) as b
+       	group	by db_date
+	</select>
 	
 	
+	
+	
+	 <select id="selectDaily" resultType="history">
+		select service,count(*) as count,regdate
+		from(
+			select 	date_format(regdate, '%Y-%m-%d') as regdate,service
+			<if test='email != null and email !=""'>
+			,email
+			</if>
+            from	sl_apihistory
+            <choose>
+            <when test="day != null">
+            where   date(regdate) = #{day}
+            </when>
+            <otherwise>
+            where   date(regdate) = date(now())
+            </otherwise>
+            </choose>
+            <if test='email != null and email !=""'>
+     		and email = #{email}
+     		</if>
+			) as a
+         group by 	a.REGDATE, a.SERVICE
+	</select>
+	
+	
+	
+	<select id="selectMonthly" resultType="chart">
+		SELECT  
+ 		db_date as regdate,
+		<if test='email != null and email !=""'>
+		email,
+		</if>
+  		ifnull(GROUP_CONCAT(if(service = 'webtoon', count, null)),0) AS 'webtoon', 
+  		ifnull(GROUP_CONCAT(if(service = 'youtube', count, null)),0) AS 'youtube', 
+  		ifnull(GROUP_CONCAT(if(service = 'game', count, null)),0) AS 'game',
+  		ifnull(GROUP_CONCAT(if(service = 'cvs', count, null)),0) AS 'cvs', 
+  		ifnull(GROUP_CONCAT(if(service = 'parcel', count, null)),0) AS 'parcel', 
+  		ifnull(GROUP_CONCAT(if(service = 'recipe', count, null)),0) AS 'recipe', 
+  		ifnull(GROUP_CONCAT(if(service = 'restaurant', count, null)),0) AS 'restaurant', 
+  		ifnull(GROUP_CONCAT(if(service = 'prod', count, null)),0) AS 'prod',
+  		ifnull(GROUP_CONCAT(if(service = 'travel', count, null)),0) AS 'travel'
+	  FROM(
+		select *,count(*) as count
+		from(
+			select 	date_format(regdate, '%Y-%m') as regdate,service
+			<if test='email != null and email !=""'>
+			,email
+			</if>
+            from	sl_apihistory
+            <choose>
+            <when test="day != null">
+            where   regdate between date_add(#{day},interval -5 Month) and date_add(#{day},interval +1 month)
+            </when>
+            <otherwise>
+            where   regdate between date_add(curdate(),interval -5 month) and curdate()
+            </otherwise>
+            </choose>
+            <if test='email != null and email !=""'>
+     		and email = #{email}
+     		</if>
+			) as a right outer join
+			(
+			select date_format(db_date, '%Y-%m') as db_date
+			from time_dimension
+			<choose>
+			<when test="day != null">
+			where db_date between date_add(#{day},interval -5 Month) and
+			date_add(#{day},interval +1 month)
+			</when>
+			<otherwise>
+			where db_date between date_add(curdate(),interval -5 Month) and curdate()
+			</otherwise>
+			</choose>
+			) as d
+			on		regdate = db_date
+        	group by 	d.db_date, a.SERVICE
+	  	 ) as b
+       	group	by db_date
+	</select>
+	
+	
+	<select id="selectHourly" resultType="chart">
+		SELECT  
+ 		CONCAT(hour) as regdate,
+		<if test='email != null and email !=""'>
+		email,
+		</if>
+  		ifnull(GROUP_CONCAT(if(service = 'webtoon', count, null)),0) AS 'webtoon', 
+  		ifnull(GROUP_CONCAT(if(service = 'youtube', count, null)),0) AS 'youtube', 
+  		ifnull(GROUP_CONCAT(if(service = 'game', count, null)),0) AS 'game',
+  		ifnull(GROUP_CONCAT(if(service = 'cvs', count, null)),0) AS 'cvs', 
+  		ifnull(GROUP_CONCAT(if(service = 'parcel', count, null)),0) AS 'parcel', 
+  		ifnull(GROUP_CONCAT(if(service = 'recipe', count, null)),0) AS 'recipe', 
+  		ifnull(GROUP_CONCAT(if(service = 'restaurant', count, null)),0) AS 'restaurant', 
+  		ifnull(GROUP_CONCAT(if(service = 'prod', count, null)),0) AS 'prod',
+  		ifnull(GROUP_CONCAT(if(service = 'travel', count, null)),0) AS 'travel'
+	  FROM(
+		select *,count(*) as count
+		from(
+			select 	date_format(regdate, '%H') as regdate,service
+			<if test='email != null and email !=""'>
+			,email
+			</if>
+            from	sl_apihistory
+            where 	1=1
+            <choose>
+            <when test="day != null">
+            and   date(regdate) = #{day}
+            </when>
+            </choose>
+            <if test='email != null and email !=""'>
+     		and email = #{email}
+     		</if>
+			) as a right outer join
+			(
+				select * from hourtime
+			) as d
+			on		regdate = hour
+        	group by 	d.hour, a.SERVICE
+	  	 ) as b
+       	group	by hour
+	</select>
 	
 	
 </mapper>

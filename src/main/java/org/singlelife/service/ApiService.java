@@ -1,6 +1,10 @@
 package org.singlelife.service;
 
+import java.util.List;
+
 import vo.ApiVO;
+import vo.ChartVO;
+import vo.HistoryVO;
 
 public interface ApiService {
 	
@@ -10,4 +14,11 @@ public interface ApiService {
 	public void deleteKey(ApiVO apiVO) throws Exception;
 	public void updateKey(ApiVO apiVO) throws Exception;
 	public ApiVO selectKey(ApiVO apiVO) throws Exception;
+	
+	public void history(HistoryVO his) throws Exception;
+	
+	public List<ChartVO> selectMonthly(String email, String day) throws Exception;
+	public List<ChartVO> selectWeekend(String email, String day) throws Exception;
+	public List<ChartVO> selectHourly(String email, String day) throws Exception;
+	public List<HistoryVO> selectDaily(String email, String day) throws Exception;
 }

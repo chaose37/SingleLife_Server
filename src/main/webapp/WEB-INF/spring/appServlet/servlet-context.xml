@@ -36,7 +36,9 @@
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/api/**"/>
-			<exclude-mapping path="/parcel/**"/>
+			<!-- 
+			 <exclude-mapping path="/parcel/**"/>
+			 -->
 			<beans:ref bean="ApiInterceptor"/>
 		</interceptor>
 	</interceptors>

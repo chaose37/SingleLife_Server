@@ -1,5 +1,7 @@
 package org.singlelife.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ApimngController {
 
 	@RequestMapping("/apimng")
-	public void api(String email, Model model)
+	public void api(String email, HttpSession session)
 	{
-		model.addAttribute("email",email);
+		session.setAttribute("email", email);
 		System.out.println(email);
+	}
+	
+	@RequestMapping("/keymng")
+	public void key()
+	{
+
 	}
 }

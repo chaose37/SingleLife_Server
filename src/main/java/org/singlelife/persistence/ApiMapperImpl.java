@@ -42,7 +42,7 @@ public class ApiMapperImpl implements ApiMapper {
 
 	@Override
 	public void deleteKey(ApiVO apiVO) throws Exception {
-		session.delete(namespace+".deleteKey");
+		session.delete(namespace+".deleteKey",apiVO);
 	}
 
 	@Override

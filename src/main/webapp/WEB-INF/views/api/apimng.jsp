@@ -53,13 +53,19 @@
                 <li class="active">
                     <a href="#">
                         <i class="ti-panel"></i>
-                        <p>Dashboard</p>
+                        <p> Api Manager </p>
+                    </a>
+                </li>
+          		<li>
+                    <a href="http://14.32.66.116:11001/controller/api/keymng">
+                        <i class="ti-panel"></i>
+                        <p> Key Manager </p>
                     </a>
                 </li>
                 <li>
                     <a href="http://14.32.66.116:19000/singleLife_web/src/index.html">
                         <i class="ti-panel"></i>
-                        <p>SingleLife</p>
+                        <p> Single Life </p>
                     </a>
                 </li>
             </ul>
@@ -116,108 +122,6 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-warning text-center">
-                                            <i class="ti-server"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Capacity</p>
-                                            105TB
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr/>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-success text-center">
-                                            <i class="ti-wallet"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Revenue</p>
-                                            $0
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr/>
-                                    <div class="stats">
-                                        <i class="ti-calendar"></i> Last day
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-danger text-center">
-                                            <i class="ti-pulse"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Errors</p>
-                                            0
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr/>
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> In the last hour
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="content">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <div class="icon-big icon-info text-center">
-                                            <i class="ti-twitter-alt"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <div class="numbers">
-                                            <p>Followers</p>
-                                            +455
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <hr/>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated now
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="card ">
                         <div class="header">
@@ -232,10 +136,24 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Weekend Usage</h4>
+                                <p class="category">All products</p>
+                            </div>
+                            <div class="content">
+                                <!-- 월간 -->
+                                <div id="lineWeek"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="card ">
                             <div class="header">
-                                <h4 class="title">Weekly Usage</h4>
+                                <h4 class="title">Monthly Usage</h4>
                                 <p class="category">All products</p>
                             </div>
                             <div class="content">
@@ -343,7 +261,7 @@ var email = $("#email").val();
             data:{ email : email},
             async: false,
             global: false,
-            url: 'http://192.168.0.18:8000/controller/api/selectWeekend',
+            url: 'http://192.168.0.18:8000/controller/api/selectMonthly',
             dataType: 'json',
             success: function (data) {
                 json = data;
@@ -353,6 +271,36 @@ var email = $("#email").val();
     })();
     Morris.Line({
         element: 'lineMonth',
+//        resize : true,
+        data: json,
+        xkey: 'regdate',
+        ykeys: ['webtoon', 'youtube', 'game', 'cvs', 'parcel', 'recipe', 'restaurant', 'prod', 'travel'],
+        xLabels: 'month',
+        hideHover : 'auto',
+        labels: ['WebToon', 'YouTube', 'Game', 'CVS', 'Parcel', 'Recipe', 'Restaurant', 'Product', 'Travel'],
+        xLabelFormat: function (d) {
+            return d.getFullYear() + " / " + (d.getMonth() + 1)
+        }
+    });
+</script>
+<script>
+var email = $("#email").val();
+    var json = (function () {
+        var json = null;
+        $.ajax({
+            data:{ email : email},
+            async: false,
+            global: false,
+            url: 'http://192.168.0.18:8000/controller/api/selectWeekend',
+            dataType: 'json',
+            success: function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+    Morris.Line({
+        element: 'lineWeek',
 //        resize : true,
         data: json,
         xkey: 'regdate',

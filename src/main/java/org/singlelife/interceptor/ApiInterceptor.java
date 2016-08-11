@@ -73,6 +73,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 		{
 			System.out.println("호스트 접속함");
 			return;
+			
 		}
 		HistoryVO his = new HistoryVO();
 		his.setApikey(api.getApikey());

@@ -36,7 +36,13 @@ public class ApiController {
 			key = service.selectKey(api).getApikey();
 		return key;
 	}
-	
+	@RequestMapping("deletekey")
+	public String deleteKey(ApiVO api) throws Exception
+	{
+		System.out.println(api.getEmail());
+		service.deleteKey(api);
+		return "delete";
+	}
 	@RequestMapping(value="/registkey",method=RequestMethod.POST)
 	public String insertKEY(ApiVO api) throws Exception {
 		if(api.getIp() == null) {

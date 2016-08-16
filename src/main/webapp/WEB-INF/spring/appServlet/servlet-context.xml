@@ -39,6 +39,8 @@
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/api/**"/>
+			<exclude-mapping path="/image/**"/>
+			<exclude-mapping path="/play/getimg/**"/>
 			<!-- 
 			 <exclude-mapping path="/parcel/**"/>
 			 -->
